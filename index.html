@@ -6,57 +6,93 @@
     <title>Document</title>
 </head>
 <body>
+    <h1>Welcome to Rock Paper Scissor!</h1>
+
+
+    <div id="playScreen">
+        <h1 id="Status"></h1>
+        <h1>Score player 1</h1>
+        <span id="playerScore">0</span>
+        <h1>Score Computer</h1>
+        <span id="computerScore">0</span>
+        <br><br><br>
+        <button id="Rock">Rock</button>
+        <button id="Paper">Paper</button>
+        <button id="Scissor">Scissor</button>
+    </div>
+</div>
     <script>
-        function getComputerChoice(){
-            let choice = Math.floor(Math.random() * 3 + 1);
-            let computerChoice;
-            if (choice == 1) {
-                computerChoice = "paper";
-            } else if (choice == 2) {
-                computerChoice = "rock"; 
-            } else {
-                computerChoice = "scissor";
-            }
-            console.log(computerChoice);
-            return computerChoice
-        }
-        
-        function getPlayerChoice(){
-            let playerChoice = prompt("Rock, Paper or Scizzor?");
-            playerChoice = playerChoice.toLowerCase();
-            console.log(playerChoice);
-            return playerChoice;
+        const rockButton = document.querySelector("#Rock");
+        const PaperButton = document.querySelector("#Paper");
+        const ScissorButton = document.querySelector("#Scissor");
+        const playerScoreScreen = document.querySelector("#playerScore");
+        const computerScoreScreen = document.querySelector("#computerScore");
+        const status = document.querySelector("#Status");
+
+        function confirmButton(){
+            playerName = name.value;
         }
 
-        function battleNow(computerChoice, playerChoice){
-            console.log("Starting battle")
-            if (computerChoice === "paper" && playerChoice === "rock"){
-                console.log("You have lost!")
-            } else if (computerChoice === playerChoice) {
-                console.log("You have tied!");
-            } else if (computerChoice === "paper" && playerChoice === "scissor") {
-                console.log("You have Won!")
-            } else if (computerChoice === "rock" && playerChoice === "scissor") {
-                console.log("You have Lost!")
-            } else if (computerChoice === "rock" && playerChoice === "paper") {
-                console.log("You have Won!")
-            } else if (computerChoice === "scissor" && playerChoice === "paper") {
-                console.log("You have Lost!")
-            } else if (computerChoice === "scissor" && playerChoice === "rock") {
-                console.log("You have Won!")
-                playerScore += 1;
-            }    
-        }
         let playerScore = 0;
         let computerScore = 0;
-        function Game(){
-            for (let i = 0; i < 5; i++){
-                battleNow(getComputerChoice(), getPlayerChoice())
-            }
-            console.log("The final score is Computer: " + computerScore + ". And you're score is " + playerScore)
-        }
+        const maxScore = 0;
 
-        Game();
+        ScissorButton.addEventListener('click', playButton.bind(null, 1));
+        PaperButton.addEventListener('click', playButton.bind(null, 2));
+        rockButton.addEventListener('click', playButton.bind(null, 3));
+
+
+
+
+        function playButton(playerChoice){
+            let computerChoice = computerChoiceDecider();
+            console.log(computerChoice)
+            console.log("lmao")
+            // scissor is 1
+            // paper is 2
+            //rock is 3
+
+            if(playerChoice == 1 && computerChoice == 2 || playerChoice == 2 && computerChoice == 3 || playerChoice == 3 && computerChoice == 1){
+                playerScore += 1;
+                playerScoreScreen.innerHTML = playerScore;
+                status.innerHTML = "Player Won!"
+            } else if(playerChoice == computerChoice){
+                status.innerHTML = "You Tied!!"
+                return null;
+            } else {
+                computerScore += 1;
+                computerScoreScreen.innerHTML = computerScore;
+                status.innerHTML = "Computer has Won!";
+            }
+            if(playerScore == 5 || computerScore == 5){
+                ending();
+            }
+
+        }
+        function computerChoiceDecider(){
+            console.log("choice")
+            let result = Math.floor(Math.random() * 3 + 1);
+            return result;
+
+        }
+        function ending(){
+            if(playerScore == 5){
+                status.innerHTML = "Player has won, Game has been reset"
+                playerScore = 0;
+                computerScore = 0;
+                playerScoreScreen.innerHTML = playerScore;
+                computerScoreScreen.innerHTML = computerScore;
+            } else if(computerScore == 5) {
+                status.innerHTML = "Computer has won, Game has been reset"
+                playerScore = 0;
+                computerScore = 0;
+                playerScoreScreen.innerHTML = playerScore;
+                computerScoreScreen.innerHTML = computerScore;
+            }
+
+            
+            
+        }
     </script>
 </body>
 </html>
