@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function getComputerChoice(){
+            let choice = Math.floor(Math.random() * 3 + 1);
+            let computerChoice;
+            if (choice == 1) {
+                computerChoice = "paper";
+            } else if (choice == 2) {
+                computerChoice = "rock"; 
+            } else {
+                computerChoice = "scissor";
+            }
+            console.log(computerChoice);
+            return computerChoice
+        }
+        
+        function getPlayerChoice(){
+            let playerChoice = prompt("Rock, Paper or Scizzor?");
+            playerChoice = playerChoice.toLowerCase();
+            console.log(playerChoice);
+            return playerChoice;
+        }
+
+        function battleNow(computerChoice, playerChoice){
+            console.log("Starting battle")
+            if (computerChoice === "paper" && playerChoice === "rock"){
+                console.log("You have lost!")
+            } else if (computerChoice === playerChoice) {
+                console.log("You have tied!");
+            } else if (computerChoice === "paper" && playerChoice === "scissor") {
+                console.log("You have Won!")
+            } else if (computerChoice === "rock" && playerChoice === "scissor") {
+                console.log("You have Lost!")
+            } else if (computerChoice === "rock" && playerChoice === "paper") {
+                console.log("You have Won!")
+            } else if (computerChoice === "scissor" && playerChoice === "paper") {
+                console.log("You have Lost!")
+            } else if (computerChoice === "scissor" && playerChoice === "rock") {
+                console.log("You have Won!")
+                playerScore += 1;
+            }    
+        }
+        let playerScore = 0;
+        let computerScore = 0;
+        function Game(){
+            for (let i = 0; i < 5; i++){
+                battleNow(getComputerChoice(), getPlayerChoice())
+            }
+            console.log("The final score is Computer: " + computerScore + ". And you're score is " + playerScore)
+        }
+
+        Game();
+    </script>
+</body>
+</html>
